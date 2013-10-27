@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="demoApp">
+    <head>
+        <title>Demo for AngularJS filter OR</title>
+        <meta charset="UTF-8">
+    </head>
+    <body ng-controller="DemoCtrl">
+        <h1>Demo for AngularJS filter OR</h1>
+        <div>
+            <label for="query">Query:</label>
+            <input type="text" id="query" ng-model="query" autofocus />
+        </div>
+        
+        <p>Try "study". Using native filter specifying the attributes I have 0 results. An unwanted behavior.</p>
+        <p>Try "1887". I have an unwanted result using native filter.</p>
+        
+        <h2>Using OR filter:</h2>
+        <div>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Genre</th>
+                </tr>
+                <tr ng-repeat="book in books | or: { title: query, genre: query }">
+                    <td>{{book.title}}</td>
+                    <td>{{book.genre}}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <h3>Using native filter specifying attributes:</h3>
+        <div>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Genre</th>
+                </tr>
+                <tr ng-repeat="book in books | filter: { title: query, genre: query }">
+                    <td>{{book.title}}</td>
+                    <td>{{book.genre}}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <h3>Using native filter:</h3>
+        <div>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Genre</th>
+                </tr>
+                <tr ng-repeat="book in books | filter: query">
+                    <td>{{book.title}}</td>
+                    <td>{{book.genre}}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <script type="text/javascript" src="../lib/angularjs/angular.min.js"></script>
+        <script type="text/javascript" src="../src/or.js"></script>
+        <script type="text/javascript">
+            var demoApp = angular.module('demoApp', ['orConditional']);
+
+            demoApp.controller('DemoCtrl', function($scope) {
+                $scope.query = '';
+                $scope.books = [
+                    {title: 'A Study in Scarlet', publication: 1887, genre: 'Detective, Crime, Mystery, Novel'},
+                    {title: 'The Sign of Four', publication: 1890, genre: 'Mystery, Novel'},
+                    {title: 'The Adventures of Sherlock Holmes', publication: 1892, genre: 'Detective, Fiction, Short stories'},
+                    {title: 'The Memoirs of Sherlock Holmes', publication: 1894, genre: 'Detective, Fiction, Short stories'},
+                    {title: 'The Hound of the Baskervilles', publication: 1902, genre: 'Detective, Fiction'}
+                ];
+            });
+        </script>
+    </body>
+</html>
