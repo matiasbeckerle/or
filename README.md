@@ -1,4 +1,4 @@
-or
+or filter
 ==
 
 AngularJS filter for OR conditional
